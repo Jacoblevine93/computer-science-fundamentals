@@ -1,0 +1,58 @@
+Exercises
+
+1. What is the main difference between a stack and a queue?
+
+A: Stack is LIFO, Queue is FIFO
+
+2. What are the similarities between stacks and queues?
+
+A: They both prioritize requests.
+
+3. Imagine you are an engineer tasked with implementing the UNDO and REDO options in a word processor such as Microsoft Word. Which data structure would you use for each option and why?
+
+A: Stacks so you can push data between the two arrays. 
+
+Programming Questions
+
+1. Given a string, reverse it using a stack. For example, the string "Bloc!" should be converted to "!colB".
+
+A: function reverseString(string) {
+	var reverseString = '';
+	var holdingArray = [];
+	for (var i=0; i < string.length; i++) {
+		holdingArray.push(string[i]);
+	}	
+	for (var i=0; i < string.length; i++) {
+		reverseString += holdingArray.pop();
+	}
+	return reverseString;
+}
+
+reverseString('blah');
+
+2. Implement the pop method of a stack using one queue. Make a FIFO data structure mirror the functionality of a LIFO data structure. Since the internal list is not the same as defined in the checkpoint, it may help to rewrite the pseudocode first.
+
+A: function mimic(array) {
+	var newArray = [];
+	for (i = array.length - 1; i >= 0; i--) {
+		newArray.push(array[i]);
+	}
+	return newArray.pop();
+}
+
+mimic([1,2,3])
+
+
+3. Implement the enqueue and dequeue methods defined in the checkpoint inside your own Queue class.
+
+A: function Queue() {
+	var array = [];
+	this.enqueue = (item) => {
+		array.push(item);
+	}
+	this.dequeue = () => {
+		return array.shift();
+	}
+}; 
+
+var queue1 = new Queue();
