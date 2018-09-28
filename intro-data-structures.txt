@@ -1,0 +1,69 @@
+Exercises
+
+1. A line of people at an amusement park ride.
+
+ - The line is composed of members, represented as strings.
+ - There is a front to the line, as well as a back.
+ - When someone enters the line, place them at the end.
+ - People may leave the line whenever they see fit, and those behind them take their place.
+
+Given the above real-world information, use an array data structure to code the following solution.
+
+a) Use an array input: ["Vivian", "Ava", "Josh", "Patrick", "Mike"]
+
+var lineMembers = ["Vivian", "Ava", "Josh", "Patrick", "Mike"];
+
+b) Insert a new person, "Mary" at the end of the line. In other words, you should insert Mary after Mike.
+	
+	function addPerson(name) {
+		lineMembers.push(name);	
+	}
+	
+	addPerson("Mary");
+
+c) Find a person in line named "Josh." This function should return the position of 2 in the array, (recall that arrays are 0-based).
+
+	function findPerson(name) {
+		return lineMembers.indexOf(name);
+	}
+
+	findPerson("Josh");
+
+d) Find a person in line named "Emily." What should your function return if it does not find the item in the array?
+
+function findPerson(name) {
+	for (var i=0; i < lineMembers.length; i++) {
+		if (name === lineMembers[i]) {
+			return lineMembers.indexOf(name);
+		}
+
+	}
+	return "Person not in line";	
+}
+
+findPerson("Emily");
+
+e) What if Ava wants to allow a friend, "Melissa", to cut in line in front of her? How would you code this so Melissa appears before Ava?
+
+function addCutter(spot,name) {
+	lineMembers.splice(spot-1, 0, name);
+}
+
+addCutter(2,'Melissa');
+
+f) If Patrick wants to leave the line, how would you delete him from the array?
+
+function removePerson(name) {
+	let spot = lineMembers.indexOf(name);
+	lineMembers.splice(spot, 1);
+}
+
+removePerson('Patrick');
+
+2. Provide another real-world example that you can model using a data structure.
+
+A shopping list. 
+
+3. How would your data structure allow developers to access and manipulate the data?
+
+You can delete, add, and re-order items. 
