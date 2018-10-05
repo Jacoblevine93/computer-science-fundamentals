@@ -12,7 +12,7 @@ A: It creates an integer, and then stores that integer in a value in the array.
 
 4. How are hash tables and objects different?
 
-A: Hash tables 
+A: Hash tables are better for performance with large quantities of data. 
 
 5. Determine whether you would use a hash table or an object to store each of the following pieces of data:
 	
