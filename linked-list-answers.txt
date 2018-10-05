@@ -48,7 +48,7 @@ class Node {
 function removeDuplicates(list){
   var node = list.head;
   var array = [];
-  array.push(node.value);
+  array.push(list.head.value);
  
   while(node.next){
     if(array.indexOf(node.next.value) != -1){

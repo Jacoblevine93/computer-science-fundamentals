@@ -1,0 +1,226 @@
+1. What is a hash table?
+
+A: A data structure that stores key/value pairs with an identifier. 
+
+2. What is hashing?
+
+A: The act of creating hash codes. 
+
+3. How does a hash table store data?
+
+A: It creates an integer, and then stores that integer in a value in the array. 
+
+4. How are hash tables and objects different?
+
+A: Hash tables 
+
+5. Determine whether you would use a hash table or an object to store each of the following pieces of data:
+	
+	- A list of pets and their unique names.
+
+	A: Hash Table
+
+	- The name, age, and the birthday of your best friend.
+
+	A: Object
+
+	- The name and location of every company in a given city.
+
+	A: Hash Table
+
+	- All of the books checked out from a library by a particular individual.
+
+	A: Object
+
+	- The primary and secondary phone numbers for a contact.
+
+	A: Object if singular. 
+
+6. Build a system that allows a sales associate to enter a customer's name, address, and phone number into the system and look up customers using their phone numbers. Store this information in a hash table.
+
+A: 
+
+function CustomerList() {
+	this.keys = [];
+	this.values = [];
+
+	this.set = function(key, value) {
+		this.keys.push(key);
+		this.values.push(value);
+	}
+
+	this.get = function(lookupKey) {
+		for (var i=0;i<this.keys.length;i++) {
+			var key = this.keys[i];
+			if (key === lookupKey) {
+				return this.values[i];
+			}
+			else {
+				return 'Customer Not Found';
+			}
+		}
+	}
+}
+
+function HashTable() {
+	this.bucketCount = 100000;
+	this.buckets = [];
+	for (var i=0; i<this.bucketCount;i++) {
+		this.buckets.push(new CustomerList())
+	}
+
+	this.hashFunction = function(key) {
+		var hash = 0;
+		if (key.length == 0) return hash;
+		for (var  i=0; i < key.length; i++) {
+			hash = (hash<<5) - hash;
+			hash = hash + key.charCodeAt(i);
+			hash = hash & hash;
+		}
+		return hash;
+	}
+
+	this.getBucketIndex = function(key) {
+		return this.hashFunction(key) % this.bucketCount;
+	}
+
+	this.getBucket = function(key) {
+		return this.buckets[this.getBucketIndex(key)];
+	}
+
+	this.set = function(key, value) {
+		this.getBucket(key).set(key, value);
+	}
+
+	this.get = function(lookupKey) {
+		return this.getBucket(lookupKey).get(lookupKey);
+	}
+}
+
+class Customer {
+  constructor(name, address, phone){
+    this.name = name;
+    this.address = address;
+    this.phone = phone;
+  }
+}
+
+var ht = new HashTable();
+var amanda = new Customer('Amanda','367 Way','123-456-7891');
+ht.set(123-456-7891, amanda);
+ht.get(123-456-7891, amanda);
+  
+
+7. Build a system that allows a store owner to track their store's inventory using a hash table for storage.
+
+A: 
+
+function ItemList() {
+	this.keys = [];
+	this.values = [];
+
+	this.set = function(key, value) {
+		this.keys.push(key);
+		this.values.push(value);
+	}
+
+	this.get = function(lookupKey) {
+		for (var i=0;i<this.keys.length;i++) {
+			var key = this.keys[i];
+			if (key === lookupKey) {
+				return this.values[i];
+			}
+			else {
+				return 'Article Not Found';
+			}
+		}
+	}
+}
+
+function HashTable() {
+	this.bucketCount = 100000;
+	this.buckets = [];
+	for (var i=0; i<this.bucketCount;i++) {
+		this.buckets.push(new ItemList())
+	}
+
+	this.hashFunction = function(key) {
+		var hash = 0;
+		if (key.length == 0) return hash;
+		for (var  i=0; i < key.length; i++) {
+			hash = (hash<<5) - hash;
+			hash = hash + key.charCodeAt(i);
+			hash = hash & hash;
+		}
+		return hash;
+	}
+
+	this.getBucketIndex = function(key) {
+		return this.hashFunction(key) % this.bucketCount;
+	}
+
+	this.getBucket = function(key) {
+		return this.buckets[this.getBucketIndex(key)];
+	}
+
+	this.set = function(key, value) {
+		this.getBucket(key).set(key, value);
+	}
+
+	this.get = function(lookupKey) {
+		return this.getBucket(lookupKey).get(lookupKey);
+	}
+}
+
+class Clothing {
+  constructor(item, price, quantity){
+    this.item = item;
+    this.price = price;
+    this.quantity = quantity;
+  }
+}
+
+var ht = new HashTable();
+var sweatshirt = new Clothing('sweatshirt','$50','20');
+ht.set('article', sweatshirt);
+ht.get('article', sweatshirt);
+
+8. Build a system that allows digital copies of newspapers to be entered and searched by publisher and publication date. Use hash tables to store the necessary data.
+
+A: 
+
+class NewsPaper {
+  constructor(publisher, date){
+    this.publisher = publisher;
+    this.date = date;
+  }
+}
+
+var map = new Map();
+
+function addPaper(publisher, obj) {
+	map.set(publisher, obj);
+}
+
+function findByPublisher(publisher) {
+	map.forEach((value, key) => {
+		if (value.publisher === publisher) {
+			console.log(`${value.publisher}, ${value.date}`);
+		}
+	});
+}
+
+function findByDate(date) {
+  map.forEach((value, key) => {
+    if(value.date === date ){
+      console.log(`${value.publisher}, ${value.date}`);
+    }
+  });
+}
+
+var phoenixTimes = new NewsPaper("Phoenix Times", '10/5/2018',);
+
+addPaper('Phoenix Times', phoenixTimes);
+findByPublisher('Phoenix Times');
+findByDate('10/5/2018');
+
