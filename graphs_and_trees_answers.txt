@@ -1,0 +1,220 @@
+Exercises
+
+1. What is a binary tree and what makes it unique to other trees?
+
+A: A binary tree is a data structure used for quick searches, and it is unique because each parent can only have two children nodes.
+
+2. What is a heuristic?
+
+A: Guesses used to speed up algorithim time. 
+
+3. What is another problem besides the shortest-path problem that requires the use of heuristics?
+
+A: Any problem where the data is too immense to calculate. 
+
+4. What is the difference between a depth-first search and a breadth-first search?
+
+A: Depth-first search searches all the way down one binary branch, then moves back up and all the way to the other side, breadth-first search gows row by row. 
+
+5. Explain in your own words what an undirected, a-cyclic, unweighted graph is.
+3
+A: An undirecting, a-cylic, unweighted graph is a graph that allows nodes to point back and forth but not loop, and have no 'costs' between nodes. 
+
+6. What kind of graph is a binary search tree?
+
+A: An unweighted, directed, a-cylical graph.
+
+Programming Questions
+
+1. Given a Binary Search Tree and a value, write a function that checks to see whether the value exists within the tree.
+
+A: 
+
+class Node {
+	constructor(val) {
+		this.value = val;
+		this.left = null;
+		this.right = null;
+	}
+}
+
+function BinarySearchTree() {
+		this.root = null;
+
+	this.push = function(val) {
+		var root = this.root;
+
+		if(!root) {
+			this.root = new Node(val);
+			console.log('Added Root')
+			return;
+		}
+
+		var currentNode = root;
+		var newNode = new Node(val);
+
+		while(currentNode) {
+			if(val < currentNode.value) {
+				if (!currentNode.left) {
+					currentNode.left = newNode;
+					break;
+				}
+				else {
+					currentNode = currentNode.left;
+				}
+			}
+			else {
+				if (!currentNode.right) {
+					currentNode.right = newNode;
+					break;
+				}
+				else {
+					currentNode = currentNode.right;
+				}
+			}
+		}
+	}
+
+	this.contains = function(val) {
+		var root = this.root;
+		var currentNode = root;
+		var found = false;
+		while(!found && currentNode) {
+			if(val < currentNode.val) {
+				currentNode = currentNode.left;
+			}
+			else if (val > currentNode.val) {
+				currentNode = currentNode.right;
+			}
+			else {
+				found = true;
+			}
+		}
+		return found;	
+	}
+};
+
+var bst = new BinarySearchTree();
+bst.push(3);
+bst.push(5);
+bst.push(1);
+bst.push(2);
+bst.push(4);
+bst.contains(3);
+
+2. Given a Binary Search Tree and two nodes, n1 and n2, write a function that finds the distance between the two nodes.
+
+A: 
+
+class Node {
+	constructor(val) {
+		this.value = val;
+		this.left = null;
+		this.right = null;
+	}
+}
+
+function BinarySearchTree() {
+		this.root = null;
+
+	this.push = function(val) {
+		var root = this.root;
+
+		if(!root) {
+			this.root = new Node(val);
+			console.log('Added Root')
+			return;
+		}
+
+		var currentNode = root;
+		var newNode = new Node(val);
+
+		while(currentNode) {
+			if(val < currentNode.value) {
+				if (!currentNode.left) {
+					currentNode.left = newNode;
+					break;
+				}
+				else {
+					currentNode = currentNode.left;
+				}
+			}
+			else {
+				if (!currentNode.right) {
+					currentNode.right = newNode;
+					break;
+				}
+				else {
+					currentNode = currentNode.right;
+				}
+			}
+		}
+	}
+
+	this.lca = function(n1,n2) {
+		var currentNode = this.root;
+		while(currentNode) {
+			if (n1 < currentNode.value && n2 < currentNode.value) {
+				currentNode = currentNode.left;
+			} 
+			else if (n1 > currentNode.value && n2 > currentNode.value) {
+				curretNode = currentNode.right;
+			}
+			else {
+				return currentNode
+			}
+		}
+	}
+
+	this.distance = function(n1,n2) {
+		var currentNode = this.lca(n1,n2);
+		var counter1 = 0;
+		var counter2 = 0;
+
+		var distance1 = function(currentNode) {
+			if (n1 < currentNode.value && currentNode.left !== null) {
+				counter1++;
+				distance1(currentNode.left);
+			}
+			else if (n1 > currentNode.value && currentNode.right !== null) {
+				counter1++;
+				distance2(currentNode.right);
+			}
+			else if (n1 === currentNode) {
+				counter1 = counter1;
+			}
+			return counter1;
+		}
+
+		var distance2 = function(currentNode) {
+			if (n2 < currentNode.value && currentNode.left !== null) {
+				counter2++;
+				distance1(currentNode.left);
+			}
+			else if (n2 > currentNode.value && currentNode.right !== null) {
+				counter2++;
+				distance2(currentNode.right);
+			}
+			else if (n2 === currentNode) {
+				counter2 = counter2;
+			}
+			return counter2;
+		}		
+		return distance1(currentNode) + distance2(currentNode);
+	}
+
+
+};
+
+var bst = new BinarySearchTree();
+bst.push(8);
+bst.push(10);
+bst.push(14);
+bst.push(13);
+bst.push(3);
+bst.push(6);
+bst.push(7);
+bst.push(4);
+bst.push(1);
+bst.distance(4,10);
+
