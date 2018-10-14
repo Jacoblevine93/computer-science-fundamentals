@@ -20,9 +20,18 @@ FUNCTION bubbleSort(collection)
 
 2. Write pseudocode for quicksort.
 
+A: 
 
+FUNCTION quickSort(array,start,end)
+	IF (start < end)
+		SET Pi = partition(array,start,end)
+		CALL quickSort(array, start, pi -1)
+		CALL quickSort(array, pi + 1, end)
 
 3. We talked about time complexity in a previous checkpoint, and how to get an idea of the efficiency of an algorithm. After looking at the pseudocode for the above sorting methods, identify why merge sort and quick sort are much more efficient than the others. Walking through each algorithm with a few sample collections may help.
 
+A: Both bubble sort and quick sort have the least amount of steps, and iterate through the list the least amount of times. 
 
 4. All of the sorts addressed in this checkpoint are known as comparison sorts. Research bucket sort and explain how it works. What is the ideal input for bucket sort?
+
+A: It creates buckets for a certain set of data, sorts the data in those buckets, then arranges the buckets together. It's best for uniformed distribution.
