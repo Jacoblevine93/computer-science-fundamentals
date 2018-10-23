@@ -33,17 +33,22 @@ END WHILE
 
 3. Create a function that searches for a specific entry in a phonebook.
 
+FUNCTION findAddress
 INPUT address-to-find
-IF address-book-address equals address-to-find
+INPUT addressBook
+FOR addressBook
+	IF address-book-address equals address-to-find
 	RETURN entire listing
-ELSE
-	PRINT "Not Found"
-END IF
+	END IF
+END FOR
+PRINT "Not Found"
+END FUNCTION
 
 4. Using the pseudocode you wrote for the previous question, implement it in any computer language of your choice.
 
-findAddress(address) {
-	if (address === this.state.address) {return this.state.listing;}
-	else return "Not Found"
+findAddress(address, addressBook) {
+	for (i=0; i < addressBook.length; i++)
+		if (addressBook[i] === address) {return addressBook;}
 }
+	return "Not Found"
 
